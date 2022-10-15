@@ -11,13 +11,13 @@ function Main(pros){
     ${
         pros.work && pros.work.map((element,index) => {
             console.log(element.editIndex)
-            return html` ${pros.filters[pros.mode](element) && `<li class= ${element.check&&"completed"} ${pros.editIndex == index && 'editing'} >
+            return html` ${pros.filters[pros.mode](element) && `<li class= '${element.check&&"completed"} ${pros.editIndex === index && 'editing'}' >
             <div class="view">
                 <input class="toggle" type="checkbox" ${element.check && 'checked'} onclick = "dispatch('TOGGLE',${index})">
                 <label ondblclick = dispatch('STARTEDIT',${index})>${element.duty}</label>
                 <button class="destroy" onclick = "dispatch('REMOVE',${index})"></button>
             </div>
-            <input class="edit" value=${element.duty}>
+            <input class="edit" value=${element.duty} onblur = dispatch('ENDEDIT',this.value.trim()) onkeyup="event.keyCode === 13  && dispatch('ENDEDIT',this.value.trim())">
         </li>`}`
         }).join('') 
     }

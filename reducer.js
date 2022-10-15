@@ -45,6 +45,19 @@ var actionlist = {
     STARTEDIT(state,action,args){
         state.editIndex = args[0]
         return state
+     },
+
+    ENDEDIT(state,action,args){
+        if(state.editIndex !== null){
+        if(args[0]){
+        state.work[state.editIndex].duty = args[0]
+        storage.set(state.work)}
+        else {
+        state = this.REMOVE(state,'REMOVE',[state.editIndex])
+        }
+        }
+        state.editIndex = null
+        return state
      }
 
 }
